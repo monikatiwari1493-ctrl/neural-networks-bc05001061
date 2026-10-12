@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Neuron Lab</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#16202b;--mute:#4c5a69;--line:#cfd6de;--a:#1f5fbf;--b:#c4570a;--ok:#1b7a43;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10161d;--card:#18212b;--ink:#e8edf2;--mute:#a4b1be;--line:#34424f;--a:#6aa6ff;--b:#ff9a57;--ok:#5fd08a}}
+:root[data-theme="dark"]{--bg:#10161d;--card:#18212b;--ink:#e8edf2;--mute:#a4b1be;--line:#34424f;--a:#6aa6ff;--b:#ff9a57;--ok:#5fd08a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Georgia,"Times New Roman",serif}
+main{max-width:980px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:2rem;margin:.2em 0 .1em;letter-spacing:-.01em}
+h2{font-size:1.25rem;margin:0 0 .5em}
+.sub{color:var(--mute);margin:0 0 20px;max-width:62ch}
+section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:20px}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:16px}
+@media(max-width:720px){.grid{grid-template-columns:1fr}}
+label{display:grid;grid-template-columns:5.5rem 1fr 3.2rem;align-items:center;gap:8px;font:14px system-ui,sans-serif;margin:6px 0}
+label output{text-align:right;font-variant-numeric:tabular-nums}
+select,button{font:14px system-ui,sans-serif;color:var(--ink);background:var(--card);border:1px solid var(--ink);border-radius:6px;padding:7px 12px;min-height:38px;cursor:pointer}
+button.p{background:var(--a);border-color:var(--a);color:#fff}
+:root[data-theme="dark"] button.p{color:#0b1220}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) button.p{color:#0b1220}}
+:focus-visible{outline:3px solid var(--b);outline-offset:2px}
+input[type=range]{width:100%;accent-color:var(--a)}
+canvas{width:100%;height:auto;aspect-ratio:4/3;display:block;border:1px solid var(--line);border-radius:6px;background:var(--bg)}
+.read{font:14px/1.6 system-ui,sans-serif;margin:8px 0;padding:8px 10px;background:var(--bg);border-radius:6px}
+.hint{font:14px/1.5 system-ui,sans-serif;color:var(--mute);margin:10px 0 0;border-left:3px solid var(--a);padding-left:10px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0;font:14px system-ui,sans-serif}
+.legend{font:13px system-ui,sans-serif;color:var(--mute);margin-top:6px}
+#msg{font:14px system-ui,sans-serif;min-height:1.5em;margin:6px 0}
+</style>
+</head>
+<body>
+<main>
+<h1>Neuron Lab</h1>
+<p class="sub">Three small experiments for Neural Networks (BC05001061): build a neuron, train a perceptron, and watch gradient descent. Predict first, then change a control and check.</p>
+
+<section aria-labelledby="h1">
+<h2 id="h1">1. A neuron with two inputs</h2>
+<div class="grid">
+<div>
+<label>Input x1 <input type="range" id="x1" min="-2" max="2" step="0.1" value="1"><output id="x1o"></output></label>
+<label>Input x2 <input type="range" id="x2" min="-2" max="2" step="0.1" value="0.5"><output id="x2o"></output></label>
+<label>Weight w1 <input type="range" id="w1" min="-3" max="3" step="0.1" value="1"><output id="w1o"></output></label>
+<label>Weight w2 <input type="range" id="w2" min="-3" max="3" step="0.1" value="-0.5"><output id="w2o"></output></label>
+<label>Bias b <input type="range" id="bb" min="-3" max="3" step="0.1" value="0"><output id="bbo"></output></label>
+<div class="row"><label style="display:contents">Activation <select id="act" aria-label="Activation function"><option value="step">Step</option><option value="sigmoid" selected>Sigmoid</option><option value="tanh">Tanh</option><option value="relu">ReLU</option></select></label></div>
+<div class="read" id="n1read" aria-live="polite"></div>
+</div>
+<div><canvas id="c1" aria-label="Activation function plot with current weighted sum marked"></canvas>
+<div class="legend">Curve: activation f(z). Dot: your neuron's current z and output.</div></div>
+</div>
+<p class="hint">Hint: z = w1·x1 + w2·x2 + b. Increase the bias and watch the dot slide right along the curve. Which activations can output a negative value?</p>
+</section>
+
+<section aria-labelledby="h2">
+<h2 id="h2">2. Perceptron trainer</h2>
+<div class="grid">
+<div>
+<div class="row"><label style="display:contents">Dataset <select id="ds" aria-label="Dataset"><option>AND</option><option>OR</option><option>XOR</option></select></label></div>
+<label>Learn rate <input type="range" id="plr" min="0.1" max="1" step="0.1" value="0.5"><output id="plro"></output></label>
+<div class="row"><button class="p" id="pstep">Train 1 epoch</button><button id="prun">Train 20 epochs</button><button id="preset">Reset</button></div>
+<div class="read" id="pread" aria-live="polite"></div>
+<div id="msg" aria-live="polite"></div>
+</div>
+<div><canvas id="c2" aria-label="Perceptron data points and decision boundary"></canvas>
+<div class="legend">Filled circle = class 1. Hollow square = class 0. Line = decision boundary. Axes run from -0.5 to 1.5.</div></div>
+</div>
+<p class="hint">Hint: the rule is w ← w + η(target − output)·x. Train AND and OR until errors reach 0. Then try XOR: no single line separates the classes, which is why hidden layers exist.</p>
+</section>
+
+<section aria-labelledby="h3">
+<h2 id="h3">3. Gradient descent</h2>
+<div class="grid">
+<div>
+<p style="margin:0 0 6px;font:14px system-ui,sans-serif">Loss: L(w) = (w − 3)² + 1. Minimum at w = 3.</p>
+<label>Learn rate <input type="range" id="glr" min="0.01" max="1.1" step="0.01" value="0.1"><output id="glro"></output></label>
+<label>Start w <input type="range" id="gw0" min="-6" max="10" step="0.5" value="-4"><output id="gw0o"></output></label>
+<div class="row"><button class="p" id="gstep">Step</button><button id="grun">Run 20 steps</button><button id="greset">Reset</button></div>
+<div class="read" id="gread" aria-live="polite"></div>
+</div>
+<div><canvas id="c3" aria-label="Loss versus iteration chart"></canvas>
+<div class="legend">Line: loss after each iteration (0 = start). Dashed line: minimum loss 1.</div></div>
+</div>
+<p class="hint">Hint: the update is w ← w − η·2(w − 3). Try η = 0.01 (slow), 0.1 (smooth), 0.9 (zig-zags), 1.1 (loss grows). That is why learning rate matters.</p>
+</section>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+function setup(c){const d=window.devicePixelRatio||1,w=c.clientWidth,h=c.clientHeight;c.width=w*d;c.height=h*d;const g=c.getContext('2d');g.setTransform(d,0,0,d,0,0);g.clearRect(0,0,w,h);return{g,w,h}}
+function axes(g,w,h,m){g.strokeStyle=css('--line');g.lineWidth=1;g.beginPath();g.rect(m,m,w-2*m,h-2*m);g.stroke()}
+function txt(g,s,x,y,al){g.fillStyle=css('--mute');g.font='12px system-ui,sans-serif';g.textAlign=al||'left';g.fillText(s,x,y)}
+
+/* Panel 1 */
+const F={step:z=>z>=0?1:0,sigmoid:z=>1/(1+Math.exp(-z)),tanh:Math.tanh,relu:z=>Math.max(0,z)};
+const names={step:'Step',sigmoid:'Sigmoid',tanh:'Tanh',relu:'ReLU'};
+function p1(){
+ const v=k=>+$(k).value;
+ [['x1','x1o'],['x2','x2o'],['w1','w1o'],['w2','w2o'],['bb','bbo']].forEach(([a,b])=>$(b).textContent=v(a).toFixed(1));
+ const z=v('w1')*v('x1')+v('w2')*v('x2')+v('bb'),a=$('act').value,y=F[a](z);
+ $('n1read').innerHTML='z = '+v('w1').toFixed(1)+'×'+v('x1').toFixed(1)+' + '+v('w2').toFixed(1)+'×'+v('x2').toFixed(1)+' + '+v('bb').toFixed(1)+' = <b>'+z.toFixed(2)+'</b><br>'+names[a]+'(z) = <b>'+y.toFixed(3)+'</b>';
+ const{g,w,h}=setup($('c1')),m=30,zr=6,yr=[-1.5,3.5];
+ const X=z=>m+(z+zr)/(2*zr)*(w-2*m),Y=y=>h-m-(y-yr[0])/(yr[1]-yr[0])*(h-2*m);
+ axes(g,w,h,m);g.strokeStyle=css('--line');g.beginPath();g.moveTo(X(0),m);g.lineTo(X(0),h-m);g.moveTo(m,Y(0));g.lineTo(w-m,Y(0));g.stroke();
+ txt(g,'z',w-m-8,Y(0)-6);txt(g,'f(z)',X(0)+4,m+12);txt(g,'-6',m,h-m+14);txt(g,'6',w-m,h-m+14,'right');
+ g.strokeStyle=css('--a');g.lineWidth=3;g.beginPath();
+ for(let i=0;i<=240;i++){const zz=-zr+i*2*zr/240,yy=F[a](zz);i?g.lineTo(X(zz),Y(yy)):g.moveTo(X(zz),Y(yy))}g.stroke();
+ const zc=Math.max(-zr,Math.min(zr,z));g.fillStyle=css('--b');g.strokeStyle=css('--card');g.lineWidth=2;g.beginPath();g.arc(X(zc),Y(y),7,0,7);g.fill();g.stroke();
+}
+['x1','x2','w1','w2','bb','act'].forEach(k=>$(k).addEventListener('input',p1));
+
+/* Panel 2 */
+const D={AND:[0,0,0,1],OR:[0,1,1,1],XOR:[0,1,1,0]},P=[[0,0],[0,1],[1,0],[1,1]];
+let pw,pb,pe,perr;
+function presetP(){pw=[0,0];pb=0;pe=0;perr=null;$('msg').textContent='';p2()}
+function epoch(){const t=D[$('ds').value],lr=+$('plro').textContent||0.5;let e=0;
+ P.forEach((x,i)=>{const y=(pw[0]*x[0]+pw[1]*x[1]+pb)>=0?1:0,d=t[i]-y;if(d){e++;pw[0]+=lr*d*x[0];pw[1]+=lr*d*x[1];pb+=lr*d}});
+ pe++;perr=e;
+ const n=$('ds').value;
+ $('msg').style.color=e===0?css('--ok'):css('--ink');
+ $('msg').textContent=e===0?'Converged: all 4 points are classified correctly.':(n==='XOR'&&pe>=10?'Still making errors after '+pe+' epochs. XOR is not linearly separable.':'');}
+function p2(){
+ $('plro').textContent=(+$('plr').value).toFixed(1);
+ $('pread').innerHTML='Epoch: <b>'+pe+'</b> | Errors last epoch: <b>'+(perr===null?'-':perr)+'</b><br>w1 = '+pw[0].toFixed(2)+', w2 = '+pw[1].toFixed(2)+', b = '+pb.toFixed(2);
+ const{g,w,h}=setup($('c2')),m=28,lo=-0.5,hi=1.5,X=x=>m+(x-lo)/(hi-lo)*(w-2*m),Y=y=>h-m-(y-lo)/(hi-lo)*(h-2*m);
+ axes(g,w,h,m);txt(g,'x1',w-m,h-8,'right');txt(g,'x2',6,m+4);
+ const t=D[$('ds').value];
+ if(pw[0]||pw[1]){g.save();g.beginPath();g.rect(m,m,w-2*m,h-2*m);g.clip();g.strokeStyle=css('--ink');g.lineWidth=2.5;g.setLineDash([]);g.beginPath();
+  if(Math.abs(pw[1])>1e-9){g.moveTo(X(lo),Y((-pb-pw[0]*lo)/pw[1]));g.lineTo(X(hi),Y((-pb-pw[0]*hi)/pw[1]))}else{const x=-pb/pw[0];g.moveTo(X(x),Y(lo));g.lineTo(X(x),Y(hi))}
+  g.stroke();g.restore()}
+ P.forEach((x,i)=>{const cx=X(x[0]),cy=Y(x[1]);g.lineWidth=3;
+  if(t[i]){g.fillStyle=css('--a');g.strokeStyle=css('--a');g.beginPath();g.arc(cx,cy,10,0,7);g.fill()}
+  else{g.strokeStyle=css('--b');g.fillStyle=css('--card');g.beginPath();g.rect(cx-9,cy-9,18,18);g.fill();g.stroke()}
+  txt(g,'('+x[0]+','+x[1]+')',cx,cy-16,'center')});
+}
+$('pstep').onclick=()=>{epoch();p2()};
+$('prun').onclick=()=>{for(let i=0;i<20;i++)epoch();p2()};
+$('preset').onclick=presetP;$('ds').onchange=presetP;$('plr').oninput=p2;
+
+/* Panel 3 */
+let gw,gh;
+const L=w=>(w-3)**2+1;
+function resetG(){gw=+$('gw0').value;gh=[L(gw)];g3()}
+function stepG(){const lr=+$('glr').value;gw=gw-lr*2*(gw-3);gh.push(L(gw))}
+function g3(){
+ $('glro').textContent=(+$('glr').value).toFixed(2);$('gw0o').textContent=(+$('gw0').value).toFixed(1);
+ const n=gh.length-1,l=gh[n];
+ $('gread').innerHTML='Iteration: <b>'+n+'</b><br>w = <b>'+(isFinite(gw)?gw.toFixed(3):'overflow')+'</b> | gradient = '+(2*(gw-3)).toFixed(3)+'<br>Loss = <b>'+(l>1e6?'> 1,000,000':l.toFixed(3))+'</b>'+(l>1e3?' (diverging: lower the learning rate)':'');
+ const{g,w,h}=setup($('c3')),m=34;axes(g,w,h,m);
+ const mx=Math.max(Math.min(Math.max(...gh),1e4),2),N=Math.max(gh.length-1,10);
+ const X=i=>m+i/N*(w-2*m),Y=v=>h-m-(Math.min(v,mx)-0)/mx*(h-2*m);
+ g.strokeStyle=css('--mute');g.setLineDash([5,4]);g.lineWidth=1;g.beginPath();g.moveTo(m,Y(1));g.lineTo(w-m,Y(1));g.stroke();g.setLineDash([]);
+ txt(g,'loss',6,m+4);txt(g,'iteration',w-m,h-8,'right');txt(g,mx>=100?Math.round(mx):mx.toFixed(1),m-4,m+10,'right');txt(g,'0',m-4,h-m,'right');txt(g,String(N),w-m,h-m+14,'right');
+ g.strokeStyle=css('--a');g.fillStyle=css('--a');g.lineWidth=3;g.beginPath();
+ gh.forEach((v,i)=>i?g.lineTo(X(i),Y(v)):g.moveTo(X(i),Y(v)));g.stroke();
+ gh.forEach((v,i)=>{g.beginPath();g.arc(X(i),Y(v),3.5,0,7);g.fill()});
+}
+$('gstep').onclick=()=>{stepG();g3()};
+$('grun').onclick=()=>{for(let i=0;i<20;i++)stepG();g3()};
+$('greset').onclick=resetG;$('gw0').oninput=resetG;$('glr').oninput=g3;
+
+function all(){p1();p2();g3()}
+addEventListener('resize',all);
+matchMedia('(prefers-color-scheme:dark)').addEventListener('change',all);
+presetP();resetG();p1();
+</script>
+</body>
+</html>
