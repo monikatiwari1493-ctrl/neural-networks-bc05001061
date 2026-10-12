@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Course website for Neural Networks (BC05001061), Gujarat Technological University, Semester 5.">
+<title>Neural Networks (BC05001061) | GTU Course Website</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+<div class="wrap">
+<h1>Neural Networks</h1>
+<p>BC05001061 | Gujarat Technological University | BCA / BCA (Hons) / MCA (Integrated) | Semester 5 | 2026-27</p>
+</div>
+</header>
+<nav aria-label="Main">
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#resources">Resources</a></li>
+<li><a href="#schedule">Weekly schedule</a></li>
+<li><a href="#assessment">Assessment</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+</nav>
+
+<main id="main">
+
+<section id="overview" aria-labelledby="t-overview">
+<h2 id="t-overview">Course overview</h2>
+<p>This course introduces artificial neural networks: how a neuron works, how networks learn, the main architectures (feedforward, CNN, RNN), and how to build and evaluate simple models in Python with Keras and TensorFlow.</p>
+<div class="facts">
+<div><b>Category</b>Discipline-Specific Elective-3</div>
+<div><b>Teaching hours per week</b>4 lecture + 2 practical</div>
+<div><b>Credits</b>5</div>
+<div><b>Total marks</b>150 (Theory 100, Practical 50)</div>
+</div>
+<p><strong>Prerequisites:</strong> basic programming (preferably Python), elementary algebra and probability, and introductory machine learning and data analysis.</p>
+
+<h3>Course outcomes</h3>
+<p>After completing the course, you will be able to:</p>
+<div class="scroll">
+<table>
+<caption>Course outcomes with Revised Bloom's Taxonomy levels</caption>
+<thead><tr><th scope="col">CO</th><th scope="col">Outcome</th><th scope="col">Bloom's level</th></tr></thead>
+<tbody>
+<tr><th scope="row">CO1</th><td>Understand the fundamental concepts, architecture and applications of neural networks.</td><td>Remember, Understand</td></tr>
+<tr><th scope="row">CO2</th><td>Explain artificial neuron models and activation functions used in neural networks.</td><td>Understand, Apply</td></tr>
+<tr><th scope="row">CO3</th><td>Apply neural network learning algorithms and training techniques.</td><td>Apply, Analyze</td></tr>
+<tr><th scope="row">CO4</th><td>Analyze different neural network architectures and their practical applications.</td><td>Apply, Analyze</td></tr>
+<tr><th scope="row">CO5</th><td>Implement simple neural network models using modern programming tools and libraries.</td><td>Understand, Apply</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Units</h3>
+<div class="scroll">
+<table>
+<caption>Course content, hours and weightage</caption>
+<thead><tr><th scope="col">Unit</th><th scope="col">Title</th><th scope="col" class="num">Hours</th><th scope="col" class="num">Weightage</th></tr></thead>
+<tbody>
+<tr><th scope="row">1</th><td>Introduction to Neural Networks</td><td class="num">9</td><td class="num">18%</td></tr>
+<tr><th scope="row">2</th><td>Artificial Neuron Models and Activation Functions</td><td class="num">12</td><td class="num">20%</td></tr>
+<tr><th scope="row">3</th><td>Neural Network Learning and Training</td><td class="num">15</td><td class="num">22%</td></tr>
+<tr><th scope="row">4</th><td>Neural Network Architectures</td><td class="num">12</td><td class="num">20%</td></tr>
+<tr><th scope="row">5</th><td>Neural Network Implementation and Applications</td><td class="num">12</td><td class="num">20%</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="resources" aria-labelledby="t-resources">
+<h2 id="t-resources">Learning resources</h2>
+<h3>Interactive tool</h3>
+<p><a class="btn" href="neuron-lab.html">Open Neuron Lab</a> Build a neuron, train a perceptron on AND, OR and XOR, and watch gradient descent. (Add neuron-lab.html to this repository.)</p>
+
+<h3>Textbooks</h3>
+<ul>
+<li>Charu C. Aggarwal, <em>Neural Networks and Deep Learning: A Textbook</em>, Springer, 2023.</li>
+<li>François Chollet, <em>Deep Learning with Python</em>, 2nd edition, Manning, 2021.</li>
+<li>Aurélien Géron, <em>Hands-On Machine Learning with Scikit-Learn, Keras &amp; TensorFlow</em>, 3rd edition, O'Reilly, 2022.</li>
+</ul>
+
+<h3>Software and libraries</h3>
+<ul>
+<li><a href="https://www.anaconda.com">Anaconda</a>, <a href="https://jupyter.org">Jupyter Notebook</a>, <a href="https://code.visualstudio.com">VS Code</a></li>
+<li><a href="https://www.python.org">Python</a>, <a href="https://numpy.org">NumPy</a>, <a href="https://pandas.pydata.org">Pandas</a>, <a href="https://matplotlib.org">Matplotlib</a></li>
+<li><a href="https://www.tensorflow.org">TensorFlow</a> and <a href="https://keras.io">Keras</a></li>
+</ul>
+
+<h3>Datasets</h3>
+<ul>
+<li><a href="https://archive.ics.uci.edu/dataset/53/iris">UCI Iris dataset</a> (Practical 9)</li>
+<li><a href="https://www.kaggle.com/datasets">Kaggle datasets</a> and <a href="https://archive.ics.uci.edu">UCI Repository</a> (Practical 10 and mini project)</li>
+</ul>
+
+<h3>Practical list</h3>
+<div class="scroll">
+<table>
+<caption>Ten practicals (2 hours per week)</caption>
+<thead><tr><th scope="col">No.</th><th scope="col">Practical</th><th scope="col">CO</th></tr></thead>
+<tbody>
+<tr><th scope="row">1</th><td>Python environment setup and numerical computation (NumPy)</td><td>CO5</td></tr>
+<tr><th scope="row">2</th><td>Implementation of an artificial neuron</td><td>CO2</td></tr>
+<tr><th scope="row">3</th><td>Implementation of activation functions with plots</td><td>CO2</td></tr>
+<tr><th scope="row">4</th><td>Single layer perceptron</td><td>CO2</td></tr>
+<tr><th scope="row">5</th><td>Perceptron learning algorithm</td><td>CO3</td></tr>
+<tr><th scope="row">6</th><td>Feedforward neural network</td><td>CO2, CO4</td></tr>
+<tr><th scope="row">7</th><td>Gradient descent</td><td>CO3</td></tr>
+<tr><th scope="row">8</th><td>Backpropagation concept</td><td>CO3</td></tr>
+<tr><th scope="row">9</th><td>Neural network using Keras (Iris)</td><td>CO5</td></tr>
+<tr><th scope="row">10</th><td>Neural network for classification</td><td>CO5</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="schedule" aria-labelledby="t-schedule">
+<h2 id="t-schedule">Weekly schedule</h2>
+<p>60 lectures over 15 weeks, with one practical each week. Dates follow the institute's academic calendar.</p>
+<div class="scroll">
+<table>
+<caption>Week-wise plan</caption>
+<thead><tr><th scope="col">Week</th><th scope="col">Lectures</th><th scope="col">Topics</th><th scope="col">Practical</th><th scope="col">Assessment</th></tr></thead>
+<tbody>
+<tr><th scope="row">1</th><td>L1-4</td><td>Unit 1: AI, ML and neural networks; motivation; biological vs artificial neuron</td><td>P1</td><td>Diagnostic quiz</td></tr>
+<tr><th scope="row">2</th><td>L5-8</td><td>Unit 1: neuron components, terminology, architecture, types</td><td>P2</td><td></td></tr>
+<tr><th scope="row">3</th><td>L9-12</td><td>Unit 1: advantages and limitations. Unit 2: neuron models, perceptron, single layer perceptron</td><td>P3</td><td>Quiz 1 (Unit 1)</td></tr>
+<tr><th scope="row">4</th><td>L13-16</td><td>Unit 2: multilayer perceptron, weights and bias</td><td>P4</td><td></td></tr>
+<tr><th scope="row">5</th><td>L17-20</td><td>Unit 2: step, sigmoid, tanh, ReLU; feedforward networks</td><td>P5</td><td></td></tr>
+<tr><th scope="row">6</th><td>L21-24</td><td>Unit 2: representation and interpretation. Unit 3: learning rules, supervised vs unsupervised, perceptron rule</td><td>P6</td><td>Assignment 1 due; Quiz 2 (Unit 2)</td></tr>
+<tr><th scope="row">7</th><td>L25-28</td><td>Unit 3: gradient descent, forward propagation</td><td>P7</td><td></td></tr>
+<tr><th scope="row">8</th><td>L29-32</td><td>Unit 3: backpropagation, training process</td><td>P8</td><td>Mid-semester test</td></tr>
+<tr><th scope="row">9</th><td>L33-36</td><td>Unit 3: overfitting, underfitting, epochs, batch size, learning rate</td><td>P9</td><td>Case study discussion</td></tr>
+<tr><th scope="row">10</th><td>L37-40</td><td>Unit 4: multilayer and deep feedforward networks</td><td>P10</td><td>Assignment 2 due</td></tr>
+<tr><th scope="row">11</th><td>L41-44</td><td>Unit 4: CNN, convolution and pooling</td><td>Mini project: proposal</td><td>Gamified quiz</td></tr>
+<tr><th scope="row">12</th><td>L45-48</td><td>Unit 4: RNN, sequence data, applications</td><td>Mini project: build</td><td></td></tr>
+<tr><th scope="row">13</th><td>L49-52</td><td>Unit 5: tools and frameworks, Python libraries, building simple models</td><td>Mini project: train</td><td>Exit ticket</td></tr>
+<tr><th scope="row">14</th><td>L53-56</td><td>Unit 5: training and testing, evaluation, visualisation</td><td>Mini project: evaluate</td><td>Peer review</td></tr>
+<tr><th scope="row">15</th><td>L57-60</td><td>Unit 5: applications in classification and prediction; revision</td><td>Demo and viva</td><td>Practical viva</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="assessment" aria-labelledby="t-assessment">
+<h2 id="t-assessment">Assessment plan</h2>
+<div class="scroll">
+<table>
+<caption>GTU marks scheme (total 150)</caption>
+<thead><tr><th scope="col">Component</th><th scope="col">Marks</th><th scope="col">Details</th></tr></thead>
+<tbody>
+<tr><th scope="row">Theory ESE</th><td class="num">70</td><td>University end-semester exam</td></tr>
+<tr><th scope="row">Theory PA / CA</th><td class="num">30</td><td>Internal assessment (split below)</td></tr>
+<tr><th scope="row">Practical PA (I)</th><td class="num">20</td><td>Lab records 10, mini project 10</td></tr>
+<tr><th scope="row">Practical ESE (V)</th><td class="num">30</td><td>Viva and demonstration</td></tr>
+</tbody>
+</table>
+</div>
+<h3>Internal theory marks (30)</h3>
+<div class="scroll">
+<table>
+<caption>Split of PA / CA marks</caption>
+<thead><tr><th scope="col">Item</th><th scope="col">Marks</th><th scope="col">Outcomes</th></tr></thead>
+<tbody>
+<tr><th scope="row">Mid-semester test</th><td class="num">10</td><td>CO1-CO3</td></tr>
+<tr><th scope="row">Quizzes</th><td class="num">5</td><td>CO1-CO2</td></tr>
+<tr><th scope="row">Assignments</th><td class="num">5</td><td>CO2-CO3</td></tr>
+<tr><th scope="row">Case study and participation</th><td class="num">5</td><td>CO3-CO4</td></tr>
+<tr><th scope="row">Attendance</th><td class="num">5</td><td>Minimum 75% expected</td></tr>
+</tbody>
+</table>
+</div>
+<h3>Theory exam: Bloom's level targets</h3>
+<p>Suggested by GTU: Remember 15%, Understand 22%, Apply 30%, Analyze 18%, Evaluate 11%, Create 4%.</p>
+<h3>Use of AI tools</h3>
+<p>You may use AI to learn and debug, with disclosure. Submitting AI-generated work as your own, or using AI in tests and viva, is not allowed. Add a short AI-use statement (tool, purpose, what you checked) to each assignment and practical. You must be able to explain your own work orally.</p>
+</section>
+
+<section id="contact" aria-labelledby="t-contact">
+<h2 id="t-contact">Contact</h2>
+<address>
+<p><strong>Course Coordinator:</strong> [Your name]<br>
+[Department], [Institute name]<br>
+Email: <a href="mailto:name@example.edu">name@example.edu</a><br>
+Office hours: [Day and time], [Room]</p>
+</address>
+<p><a class="btn" href="#">Ask a question (form link)</a> <a class="btn" href="#">Course assistant (link)</a></p>
+<p>Replace the placeholders above with your details and links.</p>
+</section>
+
+</main>
+<footer>Neural Networks BC05001061 | GTU w.e.f. 2026-27 | Syllabus: <a href="http://syllabus.gtu.ac.in/">syllabus.gtu.ac.in</a></footer>
+</body>
+</html>
